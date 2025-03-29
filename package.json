@@ -19,7 +19,8 @@
   "homepage": "https://github.com/singhragni/react-practice#readme",
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.4.1"
   },
   "devDependencies": {
     "parcel": "^2.14.2"

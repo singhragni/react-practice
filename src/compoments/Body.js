@@ -2,6 +2,7 @@ import { resData } from "../utils/mockData";
 import { ResturantContainers } from "./ResturantContainers";
 import { useState, useEffect } from "react";
 import "./index.css";
+import { Link } from "react-router-dom";
 
 // const [resDataS] = useState(resData); // hooks can not called outside the function component.
 
@@ -60,7 +61,7 @@ export const Body = () => {
       </div>
       <div className="res-Container">
         {resDataS.map((res) => {
-          return <ResturantContainers key={res.info.id} resName={res} />;
+          return <Link  key={res.info.id}  to= {'/resturants/'+ res.info.id}><ResturantContainers resName={res} /></Link>;
         })}
       </div>
     </div>

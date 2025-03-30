@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Header_logo } from "../utils/constant";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const[buton,setButton] = useState('Login')
 
   useEffect(()=>{
-    console.log("i am useEffect");
   },[buton])
 
   return (
@@ -16,10 +15,10 @@ export const Header = () => {
       </div>
       <div className="list">
         <ul className="list-page">
-          <li>Home</li>
+          <li><Link to ='/'>home</Link></li>
           <li><Link to="/about">About Us</Link></li>
           <li><Link to="/contact">Contact</Link></li>
-          <li>Cart</li>
+          <li> <Link to ="/cart">Cart</Link></li>
           <li className="butt"  onClick={()=>{
             buton === 'Login'? setButton('LogOut'):setButton('Login')
           }}>{

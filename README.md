@@ -110,6 +110,11 @@ use Link - this will update the only change then reloade or refresh the page (th
     <li><Link to="/about">About Us</Link></li>
     li><Link to="/contact">Contact</Link></li>
 
+There are two types of routing -
+- client side routing.
+- server side routing.
+
+
 
 
 

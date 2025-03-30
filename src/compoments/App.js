@@ -6,9 +6,10 @@ import Footers from "./Footer";
 import { Header } from "./Header";
 import { Body } from "./Body";
 import { Header_logo, Res_cart_logo } from "../utils/constant";
-import { createBrowserRouter, RouterProvider,Outlet } from "react-router";
+import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
 import Error from "./Error";
 import Contact from './Contact';
+import RestauranMenu from "./RestaurantMenu";
 
 // const parent = React.createElement("div", {id:"parnet"},'this is React')
 
@@ -49,6 +50,10 @@ const routerPath = createBrowserRouter([
       },{
         path: '/contact',
         element: <Contact/>
+      },
+      {
+        path:'/resturants/:resId',
+        element: <RestauranMenu/>
       }
     ]
    },

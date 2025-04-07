@@ -1,5 +1,3 @@
-
-
 import {useRouteError} from 'react-router' 
 
 const Error = () =>{

@@ -10,7 +10,6 @@ if u give attribute to jsx give in camel case
 #import and export
 there are two types
 default and name .
-
 #React Hook
 
 - reack hooks are utils,'
@@ -117,5 +116,53 @@ There are two types of routing -
 
 
 
+
+
+# Class Based with component and function based component .
+
+- when we create class based comonent and render the compone tthen it create one instance 
+and when instance create first this call constructor then t=render the it 
+
+# class base componet 
+- this have one componentDidMount()
+- this will call (mount after render)
+
+
+how mounting - 
+- componentDidMount() how there lifecycle work.
+ - commit phase is call after render phase .
+
+two phase - con, render, commit phase
+
+- parnent class batch the child comonent then commit -- 
+
+#componeDidMount()
+#componetnDidUnmount()
+#comonentWillUnmout()
+
+
+---------------
+# custom Hook.
+
+when u create hook always think about wht input and output - 
+
+
+-----------
+how decress the size of -
+becouse at end of all file bundle in one file  - and in production zip it but still it it in big files.
+
+solution of this is make small build file  (creaate seprate bundle )
+- chunking
+- code spliting-
+- lazy loading
+- dynamic bundling
+- on demand loading
+
+
+-----------------------
+css -- 
+if u want to give a specific - size
+then given in array 
+example - w[]
 
 

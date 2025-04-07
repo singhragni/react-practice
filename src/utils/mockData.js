@@ -11,6 +11,7 @@ export const resData = [
         cuisines: ["Pizzas"],
         avgRating: 4,
         parentId: "721",
+        prompted:false,
         avgRatingString: "4.0",
         totalRatingsString: "2.9K+",
         sla: {
@@ -85,6 +86,7 @@ export const resData = [
         cuisines: ["Burgers", "Fast Food", "Rolls & Wraps"],
         avgRating: 4.3,
         parentId: "547",
+        prompted:false,
         avgRatingString: "4.3",
         totalRatingsString: "7.8K+",
         sla: {
@@ -150,6 +152,7 @@ export const resData = [
         cuisines: ["Bakery", "Desserts", "Beverages"],
         avgRating: 4.5,
         parentId: "1040",
+        prompted:true,
         avgRatingString: "4.5",
         totalRatingsString: "793",
         sla: {

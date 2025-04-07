@@ -1,8 +1,10 @@
 import { resData } from "../utils/mockData";
-import { ResturantContainers } from "./ResturantContainers";
-import { useState, useEffect } from "react";
+import { ResturantContainers, withPrometedLabel } from "./ResturantContainers";
+import { useState, useEffect, useContext } from "react";
 import "./index.css";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useonlineStatus";
+import UserContext from "../utils/UserContext";
 
 // const [resDataS] = useState(resData); // hooks can not called outside the function component.
 
@@ -10,24 +12,37 @@ export const Body = () => {
   const [resDataS, setResData] = useState(resData);
   const [resDataSC, setResDataC] = useState(resData);
   const [resS, setresS] = useState("");
-  console.log("i m  1component")
+  const isOnline = useOnlineStatus();
+  const ResCarPromated = withPrometedLabel(ResturantContainers);
   useEffect(() => {
-    console.log("data.....");
+   
     fetchData();
   }, []);
-  console.log("i m component")
+  console.log("i m component");
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.5355161&lng=77.3910265&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.618246300516812&lng=77.42469989997464&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const sweegyApi = await data.json();
-    console.log(sweegyApi);
+
+    const { restaurants } =
+      sweegyApi.data.cards[1]?.card?.card?.gridElements?.infoWithStyle || "";
+    // setResData(sweegyApi)
+    console.log(restaurants);
+    setResData(restaurants);
+    console.log("datattata");
   };
+
+  if (isOnline === false)
+    return (
+      <h1>OOps! somthing went wrong please check ur internet connection </h1>
+    );
+  const { setUserName, loggedInUser } = useContext(UserContext);
   return (
     <div className="body">
-      <div className="ser-div">
+      <div className="flex px-2 py-4">
         <input
-          className="input-s-btn"
+          className=" border border-solid border-black"
           type="text"
           value={resS}
           onChange={(e) => {
@@ -37,17 +52,19 @@ export const Body = () => {
           }}
         ></input>
         <button
-          className="input-btn"
+          className="ml-2 px-2 bg-green-100  rounded-lg"
           onClick={() => {
-           let data = resDataSC.filter((value) => value.info.name.toLowerCase().includes(resS.toLowerCase()))
-           setResData(data)
+            let data = resDataSC.filter((value) =>
+              value.info.name.toLowerCase().includes(resS.toLowerCase())
+            );
+            setResData(data);
           }}
         >
-          search
+          Search
         </button>
-        <div className="filter">
+        <div className="flex items-center">
           <button
-            className="filter-btn"
+            className="ml-6 bg-gray-200 w-[200px] rounded-lg"
             onClick={() => {
               let filter = resDataS.filter(
                 (vale) => vale.info.avgRatingString > 4
@@ -58,10 +75,26 @@ export const Body = () => {
             Top Rated Restraurant
           </button>
         </div>
+        <label className="px-2">User Name:</label>
+        <input
+          className="border border-black p-0.5"
+          value={loggedInUser}
+          onChange={(e) => setUserName(e.target.value)}
+        />
       </div>
-      <div className="res-Container">
+      <div className="flex flex-wrap">
         {resDataS.map((res) => {
-          return <Link  key={res.info.id}  to= {'/resturants/'+ res.info.id}><ResturantContainers resName={res} /></Link>;
+          return (
+            <div key={res.info.id}>
+              <Link to={"/resturants/" + res.info.id}>
+                {res.info.prompted ? (
+                  <ResCarPromated resName={res} />
+                ) : (
+                  <ResturantContainers resName={res} />
+                )}
+              </Link>
+            </div>
+          );
         })}
       </div>
     </div>

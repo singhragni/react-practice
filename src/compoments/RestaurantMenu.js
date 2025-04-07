@@ -1,44 +1,59 @@
 import { useState, useEffect } from "react";
-import Shimmer from './Shimmer';
-import { useParams } from 'react-router-dom';
-import {Rest_URL} from '../utils/constant'
+import Shimmer from "./Shimmer";
+import { useParams } from "react-router-dom";
+import { Rest_URL } from "../utils/constant";
+import useResInfoData from "../utils/useResInfoData";
+import RestraurantCategory from "./RestraurantCategry";
 const RestauranMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
+  // const [resInfo, setResInfo] = useState(null);
+  const [showInd, setShowIndex] = useState(null);
+  const { resId } = useParams();
+  const resInfo = useResInfoData(resId);
+  console.log("jjjjjjjjrest");
+  console.log("showInd----", showInd)
+  if (resInfo === null) return <Shimmer />;
 
-  const {resId} = useParams();
-  console.log(resId)
-  useEffect(() => {
-    fetchMenuData();
-  }, []);
+  const {
+    name,
+    city,
+    cloudinaryImageId,
+    cuisines,
+    costForTwo,
+    costForTwoMessage,
+    avgRating,
+  } = resInfo?.data?.cards[2]?.card?.card?.info || "";
 
-  const fetchMenuData = async () => {
-    const data = await fetch(Rest_URL+resId);
-    const json = await data.json();
-    setResInfo(json);
-    console.log(json);
-  };
+  console.log(
+    resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards
+  );
+  const { cards } =
+    resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR || "";
+  console.log(Array.isArray(cards));
+  const allItemCards = cards.filter(
+    (value) =>
+      value?.card?.card?.["@type"] ==
+      "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+  );
+  console.log("i am resu--e-");
+  console.log(allItemCards);
+  return (
+    <div className="">
+      <h1 className="text-center font-bold my-8 text-2xl">{name}</h1>
+      <p className="text-center font-bold text-lg">
+        {cuisines.join(", ")} - {costForTwoMessage}
+      </p>
+      {/* acrodinal  */}
+      {allItemCards.map((category, index) => {
+        return (
+          <RestraurantCategory
+            key={category.card.card.title}
+            category={category}
+            showIndex={index=== showInd ? true : false}
+            setShowIndex={() => setShowIndex(showInd === index ? null : index)}
 
-  const{name, city, cloudinaryImageId,cuisines,costForTwo,costForTwoMessage,avgRating} = resInfo?.data?.cards[2]?.card?.card?.info || '';
- // const {} = resInfo?.data?.cards[2]?.card?.card?.groupedCard || '';
-  // console.log(resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards[0]?.card?.info )
-
-  const {itemCards} = resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card || '';
-  return resInfo === null ? (
-    <Shimmer />
-  ) : (    
-    <div className="Menu">
-      <h1>{name}</h1>
-      <p>{cuisines.join(' , ')} - {costForTwoMessage}</p>
-      <h1>Menu</h1>
-      <ul>
-        {itemCards.map((item) =>{
-          return (
-            <li key={item.card.info.id}>{item.card.info.name } - {item.card.info.price }</li>
-            
-          )
-        })}
-        
-      </ul>
+          />
+        );
+      })}
     </div>
   );
 };

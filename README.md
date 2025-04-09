@@ -166,3 +166,32 @@ then given in array
 example - w[]
 
 
+---------------------
+#Redux Tool Kit 
+- Install @reduxjs/toolkit and react-dedux
+- build our store
+- connect our store to our app
+- slice (cart slice)
+- dispatch an (action)
+- read the data from Selector.
+
+#two library we have to install for that 
+- @redux tool kit 
+- react-redux
+------------
+
+#redux tool kit is used for creating 
+- configuring store.
+
+# we use selector for syn the data frpm cart to 
+
+// onClick = {handleAddItem}
+// onClick = {() => handleAddItem(item)}
+
+
+# remeber during  subscribe remeber the cart
+
+ In the older version od redux .. we do not udate the state 
+ but new version we have to mutate the state
+ #react usees Immer libary to check the state.
+ 

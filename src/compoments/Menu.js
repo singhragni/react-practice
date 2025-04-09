@@ -1,12 +1,23 @@
+import { useDispatch } from "react-redux";
 import { Menu_URL } from "../utils/constant";
+import { addItem } from "../utils/cartSlice";
 
 const Menu = ({ items }) => {
+
+  const dispatch = useDispatch();
+  const handleAddItem = (item) =>{
+    //dispatch the action 
+    dispatch(addItem(item))
+  }
+  let i =0;
   return (
+
+
     <div className="p-4">
       {items.map((item) => {
         return (
           <div
-            key={item.card.info.id}
+            key={i++}
             className="flex w-6/12 m-auto p-4 items-center border-b border-gray-200"
           >
             {/* Left section - Text Content */}
@@ -39,8 +50,10 @@ const Menu = ({ items }) => {
                 src={Menu_URL + item.card.info.imageId}
                 className="w-32 h-32 rounded-xl"
               />
-              <button className="w-20 h-10 border border-gray-300 cursor-pointer text-green-500 bg-white font-bold absolute bottom-[-10px]">
-                ADD
+              <button className="w-20 h-10 border border-gray-300 cursor-pointer text-green-500 bg-white font-bold absolute bottom-[-10px]"
+              onClick={()=>handleAddItem(item)}
+              >
+                ADD +
               </button>
             </div>
           </div>

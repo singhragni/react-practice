@@ -9,7 +9,7 @@ export const Footer = () => {
   return (
     <>
         <li>{loggedInUser}</li>
-      <h1>I am header</h1>
+      <h1>I am Footer</h1>
     </>
   );
 };

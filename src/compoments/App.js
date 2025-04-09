@@ -15,7 +15,9 @@ import Shimmer from "./Shimmer";
 import Offer from "./Offer";
 import UserContext from "../utils/UserContext";
 //import Grocery from './Grocery';
-
+import { Provider } from "react-redux";
+import appStore from "../utils/appStore";
+import Cart from "./Cart";
 const Grocery = lazy(() => import("./Grocery"));
 
 // const parent = React.createElement("div", {id:"parnet"},'this is React')
@@ -45,11 +47,13 @@ const App = () => {
   }, []);
   return (
     // defualt value
+    <Provider store={appStore}>
     <UserContext.Provider value={{loggedInUser:userName,setUserName: setUsername}}>
       <Header />
       <Outlet />
       <Footers />
     </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -81,7 +85,7 @@ const routerPath = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <h1>I am cart</h1>,
+        element: <Cart/>,
       },
       {
         path: "/grocery",
@@ -90,7 +94,7 @@ const routerPath = createBrowserRouter([
             <Grocery />
           </Suspense>
         ),
-      },
+      }
     ],
   },
 
